@@ -41,12 +41,78 @@ public class TestHDFSPut {
 		prepareData();
 		OutputStream outputStream = null;
 		try {
-			outputStream = HDFSPut.getBZip2OutStream(HDFSUtil.getConfig(FS, namenode), "/test/abc/out");
+			outputStream = HDFSPut.getBZip2OutStream(HDFSUtil.getConfig(FS, namenode), "/test/abc/out1");
 			StringBuilder builder = new StringBuilder();
 			for (List<String> list: test_Data) {
-				for(String str : list) {
-					builder.append(str).append(";");
+				for(int i = 0; i< list.size(); i++) {
+					builder.append(list.get(i));
+					if (i < list.size() - 1) {
+						builder.append(";");
+					}
 				}
+				builder.append("\n");
+				outputStream.write(builder.toString().getBytes());
+			}
+			assertTrue(true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			if (outputStream != null) {
+				HDFSPut.closeOutputStream(outputStream);
+			}
+		}
+	}
+	
+	@Test
+	public void testgetFSOutputStream() {
+		prepareData();
+		OutputStream outputStream = null;
+		try {
+			outputStream = HDFSPut.getFSOutputStream(HDFSUtil.getConfig(FS, namenode), "/test/abc/out2");
+			StringBuilder builder = new StringBuilder();
+			for (List<String> list: test_Data) {
+				for(int i = 0; i< list.size(); i++) {
+					builder.append(list.get(i));
+					if (i < list.size() - 1) {
+						builder.append(";");
+					}
+				}
+				builder.append("\n");
+				outputStream.write(builder.toString().getBytes());
+			}
+			assertTrue(true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			if (outputStream != null) {
+				HDFSPut.closeOutputStream(outputStream);
+			}
+		}
+	}
+	
+	@Test
+	public void testgetBZip2OutStream() {
+		prepareData();
+		OutputStream outputStream = null;
+		try {
+			outputStream = HDFSPut.getBZip2OutStream(HDFSUtil.getConfig(FS, namenode), "/test/abc/out3");
+			StringBuilder builder = new StringBuilder();
+			for (List<String> list: test_Data) {
+				for(int i = 0; i< list.size(); i++) {
+					builder.append(list.get(i));
+					if (i < list.size() - 1) {
+						builder.append(";");
+					}
+				}
+				builder.append("\n");
 				outputStream.write(builder.toString().getBytes());
 			}
 			assertTrue(true);
