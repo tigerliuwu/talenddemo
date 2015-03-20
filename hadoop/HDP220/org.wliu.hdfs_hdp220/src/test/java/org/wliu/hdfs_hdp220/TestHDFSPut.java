@@ -17,6 +17,7 @@ public class TestHDFSPut {
 	
 	public static final String FS="fs.default.name";
 	public static final String namenode = "hdfs://sandbox.hortonworks.com:8020";
+	public static final String FIELD_SEPARATOR = ";";
 	
 	private List<List<String>> test_Data = new ArrayList<List<String>>();
 
@@ -47,7 +48,7 @@ public class TestHDFSPut {
 				for(int i = 0; i< list.size(); i++) {
 					builder.append(list.get(i));
 					if (i < list.size() - 1) {
-						builder.append(";");
+						builder.append(FIELD_SEPARATOR);
 					}
 				}
 				builder.append("\n");
@@ -78,7 +79,7 @@ public class TestHDFSPut {
 				for(int i = 0; i< list.size(); i++) {
 					builder.append(list.get(i));
 					if (i < list.size() - 1) {
-						builder.append(";");
+						builder.append(FIELD_SEPARATOR);
 					}
 				}
 				builder.append("\n");
@@ -103,13 +104,13 @@ public class TestHDFSPut {
 		prepareData();
 		OutputStream outputStream = null;
 		try {
-			outputStream = HDFSPut.getBZip2OutStream(HDFSUtil.getConfig(FS, namenode), "/test/abc/out3");
+			outputStream = HDFSPut.getBZip2OutStream(HDFSUtil.getConfig(FS, namenode), "/apps/hive/warehouse/test_wliu.db/t_test2/out3");
 			StringBuilder builder = new StringBuilder();
 			for (List<String> list: test_Data) {
 				for(int i = 0; i< list.size(); i++) {
 					builder.append(list.get(i));
 					if (i < list.size() - 1) {
-						builder.append(";");
+						builder.append(FIELD_SEPARATOR);
 					}
 				}
 				builder.append("\n");
